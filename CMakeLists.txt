@@ -6,9 +6,13 @@ find_package(catkin)
 find_package(catkin REQUIRED ecto object_recognition_core)
 catkin_package()
 
-add_definitions("-Wall -Werror -Wl,--no-undefined ")
+if(APPLE)
+  add_definitions("-Wall -Werror -Wno-undef")
+else()
+  add_definitions("-Wall -Werror -Wl,--no-undefined ")
+endif()
 
-find_package(Boost REQUIRED)
+find_package(Boost COMPONENTS system thread python REQUIRED)
 find_package(OpenCV REQUIRED)
 
 include_directories(${catkin_INCLUDE_DIRS} include)
